@@ -52,6 +52,33 @@ const OTHER_CONTAINERS = [
   { id: 'O4', name: '床垫袋', type: 'MATTRESS_BAG', standardL: 2000, standardW: 1800, standardH: 300, cost: 30, weight: 2 },
 ];
 
+const PACKAGING_INTRO = [
+  {
+    name: '围板箱',
+    desc: '高强度PP材质，抗压耐摔，可折叠循环使用50次以上。',
+    image: 'https://picsum.photos/seed/box1/400/300',
+    tags: ['高防护', '可折叠']
+  },
+  {
+    name: '蜂窝板',
+    desc: '轻量化蜂窝结构，优异的缓冲性能，适用于精密电子。',
+    image: 'https://picsum.photos/seed/board1/400/300',
+    tags: ['轻便', '抗震']
+  },
+  {
+    name: '防损毯',
+    desc: '加厚耐磨面料，全包裹设计，有效防止表面划伤。',
+    image: 'https://picsum.photos/seed/blanket1/400/300',
+    tags: ['防划伤', '柔性']
+  },
+  {
+    name: '托盘',
+    desc: '标准化底托，承重力强，便于叉车作业与堆码。',
+    image: 'https://picsum.photos/seed/pallet1/400/300',
+    tags: ['稳固', '易装卸']
+  }
+];
+
 // --- Components ---
 
 const InputField = ({ label, value, onChange, type = 'number', suffix, placeholder, icon: Icon }: any) => (
@@ -260,6 +287,35 @@ export default function App() {
               <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
                 <span className="text-[10px] text-slate-400 uppercase block mb-1 font-bold">投测对象</span>
                 <span className="text-sm font-bold text-slate-900">大件循环容器</span>
+              </div>
+            </div>
+
+            {/* Packaging Intro Section */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">大件循环包材介绍</span>
+                <span className="text-[10px] text-blue-600 font-bold cursor-pointer hover:underline">查看详情</span>
+              </div>
+              <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
+                {PACKAGING_INTRO.map((item, idx) => (
+                  <div key={idx} className="min-w-[160px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm group hover:border-blue-300 transition-all">
+                    <div className="h-20 overflow-hidden relative">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2">
+                        <span className="text-[8px] text-white font-bold">{item.tags.join(' · ')}</span>
+                      </div>
+                    </div>
+                    <div className="p-2.5">
+                      <h4 className="text-xs font-black text-slate-900 mb-1">{item.name}</h4>
+                      <p className="text-[9px] text-slate-400 leading-tight line-clamp-2">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
