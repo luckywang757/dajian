@@ -57,25 +57,36 @@ const PACKAGING_INTRO = [
     name: '围板箱',
     desc: '高强度PP材质，抗压耐摔，可折叠循环使用50次以上。',
     image: 'https://picsum.photos/seed/box1/400/300',
-    tags: ['高防护', '可折叠']
+    tags: ['高防护', '可折叠'],
+    isNew: true
   },
   {
     name: '蜂窝板',
     desc: '轻量化蜂窝结构，优异的缓冲性能，适用于精密电子。',
     image: 'https://picsum.photos/seed/board1/400/300',
-    tags: ['轻便', '抗震']
+    tags: ['轻便', '抗震'],
+    isNew: false
   },
   {
     name: '防损毯',
     desc: '加厚耐磨面料，全包裹设计，有效防止表面划伤。',
     image: 'https://picsum.photos/seed/blanket1/400/300',
-    tags: ['防划伤', '柔性']
+    tags: ['防划伤', '柔性'],
+    isNew: false
   },
   {
     name: '托盘',
     desc: '标准化底托，承重力强，便于叉车作业与堆码。',
     image: 'https://picsum.photos/seed/pallet1/400/300',
-    tags: ['稳固', '易装卸']
+    tags: ['稳固', '易装卸'],
+    isNew: false
+  },
+  {
+    name: '返修箱',
+    desc: '专为售后返修设计，坚固耐用，支持多次往返。',
+    image: 'https://picsum.photos/seed/repair1/400/300',
+    tags: ['售后专用', '高频'],
+    isNew: true
   }
 ];
 
@@ -298,7 +309,13 @@ export default function App() {
               </div>
               <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
                 {PACKAGING_INTRO.map((item, idx) => (
-                  <div key={idx} className="min-w-[160px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm group hover:border-blue-300 transition-all">
+                  <motion.div 
+                    key={idx} 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="min-w-[160px] bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm group hover:border-blue-300 transition-all cursor-pointer"
+                  >
                     <div className="h-20 overflow-hidden relative">
                       <img 
                         src={item.image} 
@@ -306,6 +323,11 @@ export default function App() {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         referrerPolicy="no-referrer"
                       />
+                      {item.isNew && (
+                        <div className="absolute top-2 left-2 bg-blue-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg">
+                          NEW
+                        </div>
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2">
                         <span className="text-[8px] text-white font-bold">{item.tags.join(' · ')}</span>
                       </div>
@@ -314,7 +336,7 @@ export default function App() {
                       <h4 className="text-xs font-black text-slate-900 mb-1">{item.name}</h4>
                       <p className="text-[9px] text-slate-400 leading-tight line-clamp-2">{item.desc}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
